@@ -1,2 +1,41 @@
 @import './reset'
 @import './fonts'
+
+:root
+	--a-body-font-size: 14px
+	--a-body-font-weight: 400
+	--a-body-line-height: 1.4286
+
+	--a-color-black: #000000
+	--a-color-muted: #808080
+	--a-color-white: #e5e5e5
+
+html
+	padding: 20px 50px
+
+	font-family: 'Inter', -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif
+	font-size: var(--a-body-font-size)
+	font-weight: var(--a-body-font-weight)
+	line-height: var(--a-body-line-height)
+
+	color: var(--a-color-white)
+
+	text-underline-offset: 0.3rem
+
+	background: var(--a-color-black)
+
+	color-scheme: light dark
+	text-size-adjust: 100%
+
+	-webkit-font-smoothing: antialiased
+	-moz-osx-font-smoothing: grayscale
+
+ul
+	list-style: none
+
+a
+	color: var(--a-color-white)
+
+a:hover
+	color: var(--a-color-muted)
+
