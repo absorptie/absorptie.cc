@@ -22,7 +22,6 @@
     "vite.config.*",
     "src/**/*",
     "src/**/*.vue",
-    "build/**/*",
-    "api/**/*"
+    "notion/**/*"
   ]
 }
