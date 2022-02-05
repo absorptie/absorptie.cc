@@ -1,10 +1,11 @@
 import { createRouter } from '@nanostores/router'
 
 interface Routes {
-	'IndexView': void
-	// 'PostView': 'id'
+	'ArticleView': 'category' | 'id'
+	'IndexView': 'category'
 }
 
 export let router = createRouter<Routes>({
-	'IndexView': '/'
+	'ArticleView': '/:category/:id',
+	'IndexView': '/:category?'
 })
