@@ -250,9 +250,9 @@ async function compilePreview (
 	let text
 	let image
 	for (let block of blocks) {
-		if (block.type === 'paragraph') {
+		if (block.type === 'paragraph' && !text) {
 			text = block.content.map(item => item.content).join(' ')
-		} else if (block.type === 'image') {
+		} else if (block.type === 'image' && !image) {
 			image = await processImage(block.content[0].src, articleId, {
 				sizeKey: 'height',
 				sizes: [600, 900, 1200, 1800]
