@@ -3,55 +3,19 @@ header.header
 	nav.header__nav
 		ul.header__list
 			li.header__item.--title(
-				:class="{ '--fixed': isFixedTitle }"
+				:class="{ '--fixed': isFixed }"
 			)
 				a.header__link(href="/" @click="scrollTop") Absorptie
-			//- li.header__item.--feed
-			//- 	a-select(
-			//- 		v-if="showFeedCategories"
-			//- 		v-model="feedCategory"
-			//- 		:options="categories"
-			//- 	)
-			//- 	a.header__link(v-else href="/") Feed
-			//- li.header__item.--shop
-			//- 	a-select(
-			//- 		v-if="showShopCategories"
-			//- 		v-model="shopCategory"
-			//- 		:options="shopCategories"
-			//- 	)
-			//- 	a.header__link(v-else href="/shop") Shop
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-// import { openPage } from '@nanostores/router'
 import { useStore } from '@nanostores/vue'
 
-// import categories from '../assets/categories.json'
-// import ASelect from './ASelect.vue'
 import { router } from '../router'
 
 const page = useStore(router)
-const isFixedTitle = computed(() => page.value?.route === 'IndexView')
-
-// const feedCategory = computed({
-// 	// @ts-ignore
-// 	get: () => page.value?.params.category || '',
-// 	set: value => {
-// 		openPage(router, 'IndexView', { category: value })
-// 	}
-// })
-
-// const shopCategory = computed({
-// 	// @ts-ignore
-// 	get: () => page.value?.params.category || '',
-// 	set: value => {
-// 		openPage(router, 'ShopView', { category: value })
-// 	}
-// })
-
-// const showFeedCategories = computed(() => page.value?.route === 'IndexView')
-// const showShopCategories = computed(() => page.value?.route === 'ShopView')
+const isFixed = computed(() => page.value?.route === 'IndexView')
 
 function scrollTop (): void {
 	window.scrollTo({ top: 0 })
