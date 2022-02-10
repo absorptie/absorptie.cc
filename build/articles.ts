@@ -265,7 +265,6 @@ async function compilePreview (
 }
 
 export async function compileArticles (articlesList: ArticleMeta[]): Promise<void> {
-	log('Compiling articles…')
 	for (let article of articlesList) {
 		log('Compiling article', article.id)
 		await cleanupBucketFolder(article.id)
