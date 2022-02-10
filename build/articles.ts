@@ -122,6 +122,19 @@ async function compileColumnList (
 				type: 'column_image',
 				content: await compileImageBlock(columnBlock, articleId)
 			})
+
+			// set min aspect ratio for both images
+			if (
+				content.length === 2 &&
+				content[0].type === 'column_image' &&
+				content[1].type === 'column_image' &&
+				content[0].content.content[0].aspectRatio !== content[1].content.content[0].aspectRatio
+			) {
+				content[0].content.content[0].aspectRatio = content[1].content.content[0].aspectRatio = Math.min(
+					Number(content[0].content.content[0].aspectRatio),
+					Number(content[1].content.content[0].aspectRatio)
+				).toString()
+			}
 		}
 	}
 
