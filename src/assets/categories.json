@@ -1,0 +1,30 @@
+[
+	{
+		"name": "Feed",
+		"value": ""
+	},
+	{
+		"name": "Architecture",
+		"value": "architecture"
+	},
+	{
+		"name": "Interiors",
+		"value": "interiors"
+	},
+	{
+		"name": "Furniture",
+		"value": "furniture"
+	},
+	{
+		"name": "Homewares",
+		"value": "homewares"
+	},
+	{
+		"name": "Moods",
+		"value": "moods"
+	},
+	{
+		"name": "Conversations",
+		"value": "conversations"
+	}
+]
