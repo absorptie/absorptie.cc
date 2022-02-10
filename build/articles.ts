@@ -72,7 +72,7 @@ async function compileImageBlock (block: NotionBlockImage, articleId: string): P
 	}
 	if (block.image.type === 'file') {
 		let processedImage = await processImage(block.image.file.url, articleId)
-		content.push({ ...processedImage, alt })
+		content.push({ alt, ...processedImage })
 	}
 	return {
 		id: block.id,
