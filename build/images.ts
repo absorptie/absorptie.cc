@@ -66,6 +66,11 @@ async function preprocessImage (
 	return images
 }
 
+const ext2type = {
+	jpg: 'image/jpeg',
+	webp: 'image/webp'
+}
+
 export async function processImage (
 	url: string,
 	s3folder: string,
@@ -92,7 +97,8 @@ export async function processImage (
 				extension,
 				s3folder
 			)
-			let source = sources[`${extension}`] || (sources[`${extension}`] = [])
+			let type = ext2type[extension]
+			let source = sources[`${type}`] || (sources[`${type}`] = [])
 			source.push(`${_src} ${size}w`)
 
 			if (
