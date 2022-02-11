@@ -48,6 +48,7 @@ function scrollTop (): void {
 		position: sticky
 		top: 20px
 		grid-column-end: span 2
+		mix-blend-mode: difference
 
 	&.--feed
 		grid-column-start: 5
