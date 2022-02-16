@@ -17,17 +17,13 @@ export function useFeed (category: Ref<string>): {
 		hasMore.value && page.value++
 	}
 
-	async function loadFeed (): Promise<void> {
+	watch([category, page], async () => {
 		let module = await import(
 			`../../notion/pagination/${unref(category)}/${unref(page)}.json`
 		)
 		items.value.push(...module.items)
 		hasMore.value = module.next
-	}
-
-	loadFeed()
-
-	watch([category, page], loadFeed)
+	}, { immediate: true })
 
 	usePrefetch(
 		computed(() => items.value.map(article => article.id))
