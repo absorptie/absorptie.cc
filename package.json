@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:notion": "node --no-warnings --loader ts-node/esm ./build/index.ts"
+    "build:data": "node --no-warnings --loader ts-node/esm ./build/data/index.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.50.0",

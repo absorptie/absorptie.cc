@@ -267,8 +267,8 @@ async function compilePreview (
 			text = block.content.map(item => item.content).join(' ')
 		} else if (block.type === 'image' && !image) {
 			image = await processImage(block.content[0].src, articleId, {
-				sizeKey: 'height',
-				sizes: [600, 900, 1200, 1800]
+				sizeKey: 'width',
+				sizes: [300, 600, 900, 1200, 1800]
 			})
 			image.alt = block.content[0].alt
 		}
