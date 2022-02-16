@@ -5,21 +5,18 @@ header.header
 			li.header__item.--title(
 				:class="{ '--fixed': isFixed }"
 			)
-				a.header__link(href="/" @click="scrollTop") Absorptie
+				a.header__link(href="/" @click="scrollToTop") Absorptie
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useStore } from '@nanostores/vue'
 
-import { router } from '../router'
+import { scrollToTop } from '../utils'
+import { routerStore } from '../router'
 
-const page = useStore(router)
+const page = useStore(routerStore)
 const isFixed = computed(() => page.value?.route === 'IndexView')
-
-function scrollTop (): void {
-	window.scrollTo({ top: 0 })
-}
 </script>
 
 <style lang="stylus" scoped>
