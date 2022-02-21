@@ -63,7 +63,9 @@ async function build (): Promise<void> {
 		let { clientResult, hashMap } = await bundle(input)
 
 		let appChunk = clientResult.output.find(chunk => {
-			return chunk.type === 'chunk' && chunk.isEntry
+			return chunk.type === 'chunk' &&
+				chunk.isEntry &&
+				chunk.fileName.includes('app')
 		}) as OutputChunk
 
 		let cssChunk = clientResult.output.find(chunk => {
