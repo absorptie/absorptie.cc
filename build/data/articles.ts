@@ -288,8 +288,6 @@ export async function compileArticles (articlesList: ArticleMeta[]): Promise<voi
 		let articleFile = `${article.id}.json`
 		let articlePath = join(articlesPath, articleFile)
 
-		await fs.mkdir(articlesPath, { recursive: true })
-
 		log('Saving article', `${articlesFolder}/${articleFile}`)
 		await fs.writeFile(
 			articlePath,

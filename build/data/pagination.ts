@@ -52,7 +52,6 @@ export async function createPagination (
 		let pagePath = join(paginationPath, pageFile)
 
 		log(`Saving page ${index + 1} for "${paginationPrefix}" category…`)
-		await fs.mkdir(paginationPath, { recursive: true })
 		await fs.writeFile(
 			pagePath,
 			JSON.stringify(page, null, '\t'),
