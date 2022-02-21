@@ -2,6 +2,7 @@
 	"extends": "@postanu/eslint-config/vue",
 	"rules": {
 		"security/detect-non-literal-fs-filename": "off",
+		"security/detect-non-literal-require": "off",
 		"unicorn/prefer-json-parse-buffer": "off",
 		"unicorn/no-array-reduce": "off"
 	}
