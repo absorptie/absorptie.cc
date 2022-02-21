@@ -4,7 +4,7 @@ import sizeOf from 'image-size'
 import fetch from 'node-fetch'
 
 import { uploadImage } from './s3.js'
-import { log } from './logger.js'
+import { log } from '../logger/index.js'
 import type { PreprocessedImages, ProcessedImage } from './types.js'
 
 let cache: {

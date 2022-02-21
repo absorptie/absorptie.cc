@@ -7,7 +7,7 @@ import { createCategories } from './categories.js'
 import { compileArticles } from './articles.js'
 import { articlesPath } from './dirs.js'
 import { notion } from './notion.js'
-import { log } from './logger.js'
+import { log } from '../logger/index.js'
 import type { ArticleMeta, DatabaseQueryFilter } from './types.js'
 
 async function cleanupList (
@@ -155,6 +155,8 @@ export async function getArticlesList (category?: string): Promise<ArticleMeta[]
 }
 
 async function main (): Promise<void> {
+	let start = Date.now()
+
 	let allArticlesList = await getArticlesList()
 	let updatableArticlesList = await cleanupList(allArticlesList)
 	await compileArticles(updatableArticlesList)
@@ -163,7 +165,7 @@ async function main (): Promise<void> {
 		await removePagination()
 		await createPagination(allArticlesList, 'feed')
 		await createCategories()
-		log('Done')
+		log(`Done in ${((Date.now() - start) / 1000).toFixed(2)}s.`)
 	} else {
 		log('Nothing to build')
 	}

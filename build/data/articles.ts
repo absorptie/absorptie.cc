@@ -5,7 +5,7 @@ import { articlesFolder, articlesPath } from './dirs.js'
 import { cleanupBucketFolder } from './s3.js'
 import { processImage } from './images.js'
 import { notion } from './notion.js'
-import { log } from './logger.js'
+import { log } from '../logger/index.js'
 import type {
 	ArticleBlockParagraphContent,
 	ArticleBlockColumnList,
@@ -294,7 +294,7 @@ export async function compileArticles (articlesList: ArticleMeta[]): Promise<voi
 		await fs.writeFile(
 			articlePath,
 			JSON.stringify({ ...article, preview, sections }, null, '\t'),
-			'utf-8'
+			'utf8'
 		)
 	}
 }

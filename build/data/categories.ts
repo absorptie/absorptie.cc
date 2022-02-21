@@ -2,7 +2,7 @@ import { NOTION_DATABASE_ID } from './constants.js'
 import { createPagination } from './pagination.js'
 import { getArticlesList } from './index.js'
 import { notion } from './notion.js'
-import { log } from './logger.js'
+import { log } from '../logger/index.js'
 import type { CategoriesList } from './types.js'
 
 async function getCategoriesList (): Promise<CategoriesList> {

@@ -4,11 +4,17 @@ import type { OutputAsset, OutputChunk } from 'rollup'
 
 import { articlesPath, paginationsPath } from '../data/dirs.js'
 import { outDir, root, tempOutDir } from './dirs.js'
+import { log, logger } from '../logger/index.js'
 import { renderPage } from './render.js'
 import { bundle } from './bundle.js'
 
 async function build (): Promise<void> {
 	try {
+		let start = Date.now()
+
+		logger.setPrefix('SSG')
+		log('Getting pages list…')
+
 		let pagesList: string[] = ['/']
 		let input: Record<string, string> = {
 			app: join(root, './src/main.ts')
@@ -34,6 +40,8 @@ async function build (): Promise<void> {
 			}
 		}
 
+		log(`Received ${pagesList.length} pages`)
+
 		let { clientResult, hashMap } = await bundle(input)
 
 		let appChunk = clientResult.output.find(chunk => {
@@ -47,8 +55,9 @@ async function build (): Promise<void> {
 		let { createApp } = await import(join(tempOutDir, './app.js'))
 		let manifest = JSON.parse(await readFile(join(tempOutDir, './ssr-manifest.json'), 'utf8'))
 
+		log('Rendering pages…')
 		for (let pageUrl of pagesList) {
-			console.log('rendering', pageUrl)
+			log('Rendering page', pageUrl)
 			let html = await renderPage(
 				createApp,
 				appChunk,
@@ -61,6 +70,8 @@ async function build (): Promise<void> {
 			await mkdir(filePath, { recursive: true })
 			await writeFile(join(filePath, './index.html'), html, 'utf8')
 		}
+
+		log(`Done in ${((Date.now() - start) / 1000).toFixed(2)}s.`)
 	} catch (error) {
 		console.error(error)
 		throw error

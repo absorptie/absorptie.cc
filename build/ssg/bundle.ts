@@ -6,6 +6,7 @@ import type { RollupOutput } from 'rollup'
 
 import { prefetchHashMapPlugin } from './plugin.js'
 import { tempOutDir } from './dirs.js'
+import { log } from '../logger/index.js'
 
 export async function bundle (input: Record<string, string>): Promise<{
 	clientResult: RollupOutput
@@ -14,6 +15,7 @@ export async function bundle (input: Record<string, string>): Promise<{
 }> {
 	let prefetchHashMap = Object.create(null)
 
+	log('Building client bundle…')
 	let clientResult = await vite.build({
 		plugins: [
 			prefetchHashMapPlugin(prefetchHashMap)
@@ -29,8 +31,7 @@ export async function bundle (input: Record<string, string>): Promise<{
 		}
 	}) as RollupOutput
 
-	let hashMap = JSON.stringify(JSON.stringify(prefetchHashMap))
-
+	log('Building server bundle…')
 	let serverResult = await vite.build({
 		// don’t copy notion data files
 		publicDir: false,
@@ -51,6 +52,7 @@ export async function bundle (input: Record<string, string>): Promise<{
 		}
 	}) as RollupOutput
 
+	let hashMap = JSON.stringify(JSON.stringify(prefetchHashMap))
 	await writeFile(
 		join(tempOutDir, './package.json'),
 		JSON.stringify({ type: 'module' }),

@@ -3,7 +3,7 @@ import { join } from 'node:path'
 
 import { paginationsPath, articlesPath } from './dirs.js'
 import { PAGE_SIZE } from './constants.js'
-import { log } from './logger.js'
+import { log } from '../logger/index.js'
 import type { ArticleMeta, PaginationFile, PreviewedArticle } from './types.js'
 
 export async function removePagination (): Promise<void> {
