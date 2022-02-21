@@ -13,9 +13,9 @@ import { computed } from 'vue'
 import { useStore } from '@nanostores/vue'
 
 import { scrollToTop } from '../utils'
-import { routerStore } from '../router'
+import { router } from '../router'
 
-const page = useStore(routerStore)
+const page = useStore(router.store)
 const isFixed = computed(() => page.value?.route === 'IndexView')
 </script>
 

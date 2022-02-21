@@ -1,11 +1,10 @@
 import { createRouter as createNanoRouter } from '@nanostores/router'
-import { nextTick, ref, watch } from 'vue'
-import { useStore } from '@nanostores/vue'
-import type { DeepReadonly, InjectionKey, Ref } from 'vue'
-import type { StoreValue } from 'nanostores'
+import { nextTick, ref } from 'vue'
 import type { Router } from '@nanostores/router'
+import type { Ref } from 'vue'
 
-import type { CompiledArticle } from '../../build/data/types'
+import { preloadArticle } from '../composables/use-article'
+import { preloadFeed } from '../composables/use-feed'
 import { scrollToTop } from '../utils'
 
 export interface Routes {
@@ -13,52 +12,49 @@ export interface Routes {
 	'IndexView': 'category'
 }
 
-export interface VueRouter {
-	page: DeepReadonly<Ref<StoreValue<Router<Routes>>>>
+function createRouter (): {
+	store: Router<Routes>
 	component: Ref<string>
-	data: Ref<CompiledArticle | undefined>
-	loading: Promise<void>
-}
-
-export const RouterSymbol: InjectionKey<VueRouter> = Symbol('router')
-
-export let routerStore = createNanoRouter<Routes>({
-	'ArticleView': '/:category/:id',
-	'IndexView': '/:category?'
-})
-
-function createVueRouter (): VueRouter {
-	let page = useStore(routerStore)
+	loading: Ref<boolean>
+} {
+	let store = createNanoRouter<Routes>({
+		'ArticleView': '/:category/:id',
+		'IndexView': '/:category?'
+	})
 	let component = ref('index-view')
-	let data = ref()
+	let loading = ref(true)
 
-	let init: () => void
-	let loading = new Promise<void>(resolve => {
-		init = resolve
+	function switchPage (componentName: string): void {
+		component.value = componentName
+		loading.value = false
+		nextTick(() => {
+			scrollToTop()
+		})
+	}
+
+	store.subscribe(page => {
+		loading.value = true
+
+		if (typeof page !== 'undefined') {
+			if (page.route === 'ArticleView') {
+				let id = page.params.id
+				preloadArticle(id).then(() => {
+					switchPage(page.route)
+				})
+			} else {
+				let category = page.params.category || 'feed'
+				preloadFeed(category, 1).then(() => {
+					switchPage(page.route)
+				})
+			}
+		}
 	})
 
-	watch(() => page.value?.route, async () => {
-		data.value = undefined
-
-		if (typeof page.value !== 'undefined') {
-			if (page.value.route === 'ArticleView') {
-				let id = page.value.params.id
-				let module = await import(`../../notion/articles/${id}.json`)
-				data.value = module.default
-			}
-			component.value = page.value.route
-		}
-
-		init()
-		nextTick(scrollToTop)
-	}, { immediate: true })
-
 	return {
-		page,
+		store,
 		component,
-		data,
 		loading
 	}
 }
 
-export let router = createVueRouter()
+export let router = createRouter()
