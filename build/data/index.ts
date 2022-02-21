@@ -160,6 +160,7 @@ async function saveRenderingList (articles: ArticleMeta[]): Promise<void> {
 	if (list.length > 0) {
 		list.unshift('/')
 	}
+	await fs.mkdir(notionDir, { recursive: true })
 	await fs.writeFile(
 		join(notionDir, './rendering.json'),
 		JSON.stringify(list),
