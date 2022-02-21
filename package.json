@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "nr build:data && nr build:ssg",
     "build:data": "node --no-warnings --loader ts-node/esm ./build/data/index.ts",
     "build:ssg": "node --no-warnings --loader ts-node/esm ./build/ssg/index.ts"
   },
@@ -34,6 +34,7 @@
     "vue": "^3.2.31"
   },
   "devDependencies": {
+    "@antfu/ni": "^0.13.1",
     "@postanu/eslint-config": "^3.7.1",
     "@postanu/stylelint-config": "^0.4.0",
     "@size-limit/preset-app": "^7.0.8",

@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@antfu/ni': ^0.13.1
   '@aws-sdk/client-s3': ^3.52.0
   '@aws-sdk/middleware-sdk-s3': ^3.52.0
   '@aws-sdk/signature-v4-crt': ^3.52.0
@@ -69,6 +70,7 @@ dependencies:
   vue: 3.2.31
 
 devDependencies:
+  '@antfu/ni': 0.13.1
   '@postanu/eslint-config': 3.7.1_be7d3489f436bbfa59ff01f76c51527b
   '@postanu/stylelint-config': 0.4.0_stylelint@14.5.1
   '@size-limit/preset-app': 7.0.8_size-limit@7.0.8
@@ -99,6 +101,11 @@ devDependencies:
   vue-tsc: 0.31.4_typescript@4.5.5
 
 packages:
+
+  /@antfu/ni/0.13.1:
+    resolution: {integrity: sha512-n9frAWnm14iweBtISggohUVuU0bmE0i2wUgGWS1qUqqCNV9lUwYnhxU04OymrMeWpVTtKpk3MR6E+iQIi1i12w==}
+    hasBin: true
+    dev: true
 
   /@aws-crypto/crc32/2.0.0:
     resolution: {integrity: sha512-TvE1r2CUueyXOuHdEigYjIZVesInd9KN+K/TFFNfkkxRThiNxO6i4ZqqAVMoEjAamZZ1AA8WXJkjCz7YShHPQA==}
