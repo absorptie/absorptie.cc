@@ -25,7 +25,7 @@ export async function bundle (input: Record<string, string>): Promise<{
 				input,
 				preserveEntrySignatures: 'allow-extension'
 			},
-			minify: false
+			minify: true
 		}
 	}) as RollupOutput
 
