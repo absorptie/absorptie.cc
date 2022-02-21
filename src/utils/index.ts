@@ -1,3 +1,5 @@
+export const isBrowser = typeof window !== 'undefined'
+
 export function scrollToTop (): void {
-	window.scrollTo({ top: 0 })
+	isBrowser && window.scrollTo({ top: 0 })
 }
