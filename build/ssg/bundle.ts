@@ -1,3 +1,6 @@
+
+import { writeFile } from 'node:fs/promises'
+import { join } from 'node:path'
 import vite from 'vite'
 import type { RollupOutput } from 'rollup'
 
@@ -49,6 +52,12 @@ export async function bundle (input: Record<string, string>): Promise<{
 			minify: false
 		}
 	}) as RollupOutput
+
+	await writeFile(
+		join(tempOutDir, './package.json'),
+		JSON.stringify({ type: 'module' }),
+		'utf8'
+	)
 
 	return {
 		clientResult,
