@@ -39,6 +39,8 @@ function hrefToPath (href: string): string {
 }
 
 export function usePrefetch (list: Ref<string[]>): void {
+	if (!isBrowser) return
+
 	let prefetching = true
 	let idle = 'requestIdleCallback' in window
 		? window.requestIdleCallback
