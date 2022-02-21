@@ -1,11 +1,8 @@
 import { Client } from '@notionhq/client'
-import dotenv from 'dotenv'
 
-dotenv.config()
-
-export const DATABASE_ID = process.env.NOTION_DATABASE_ID as string
+import { NOTION_TOKEN, NOTION_VERSION } from './constants.js'
 
 export const notion = new Client({
-	auth: process.env.NOTION_TOKEN,
-	notionVersion: process.env.NOTION_VERSION
+	auth: NOTION_TOKEN,
+	notionVersion: NOTION_VERSION
 })

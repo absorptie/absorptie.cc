@@ -2,10 +2,9 @@ import { promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
 import { paginationsPath, articlesPath } from './dirs.js'
+import { PAGE_SIZE } from './constants.js'
 import { log } from './logger.js'
 import type { ArticleMeta, PaginationFile, PreviewedArticle } from './types.js'
-
-const PAGE_SIZE = 2
 
 export async function removePagination (): Promise<void> {
 	log('Removing old pagination…')
@@ -23,7 +22,7 @@ export async function createPagination (
 		articlesList.map<Promise<PreviewedArticle>>(async article => {
 			let file = await fs.readFile(
 				join(articlesPath, `${article.id}.json`),
-				{ encoding: 'utf-8' }
+				{ encoding: 'utf8' }
 			)
 			return {
 				...article,
@@ -57,7 +56,7 @@ export async function createPagination (
 		await fs.writeFile(
 			pagePath,
 			JSON.stringify(page, null, '\t'),
-			'utf-8'
+			'utf8'
 		)
 	}
 }

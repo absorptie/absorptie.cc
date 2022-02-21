@@ -6,11 +6,17 @@ import {
 } from '@aws-sdk/client-s3'
 import { nanoid } from 'nanoid'
 
+import { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from './constants.js'
+
 const S3Bucket = 's3.postanu.com'
 const S3BucketFolder = 'absorptie/images'
 
 export const S3 = new S3Client({
-	region: 'eu-north-1'
+	region: 'eu-north-1',
+	credentials: {
+		accessKeyId: AWS_ACCESS_KEY_ID,
+		secretAccessKey: AWS_SECRET_ACCESS_KEY
+	}
 })
 
 export async function uploadImage (

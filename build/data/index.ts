@@ -2,10 +2,11 @@ import { constants, promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
 import { createPagination, removePagination } from './pagination.js'
-import { DATABASE_ID, notion } from './notion.js'
+import { NOTION_DATABASE_ID } from './constants.js'
 import { createCategories } from './categories.js'
 import { compileArticles } from './articles.js'
 import { articlesPath } from './dirs.js'
+import { notion } from './notion.js'
 import { log } from './logger.js'
 import type { ArticleMeta, DatabaseQueryFilter } from './types.js'
 
@@ -44,7 +45,7 @@ async function cleanupList (
 			await fs.access(articlePath, constants.F_OK)
 
 			let cachedArticle = JSON.parse(
-				await fs.readFile(articlePath, { encoding: 'utf-8' })
+				await fs.readFile(articlePath, { encoding: 'utf8' })
 			)
 
 			if (article.last_edited_time !== cachedArticle.last_edited_time) {
@@ -93,7 +94,7 @@ export async function getArticlesList (category?: string): Promise<ArticleMeta[]
 
 	while (run) {
 		let { results, next_cursor } = await notion.databases.query({
-			database_id: DATABASE_ID,
+			database_id: NOTION_DATABASE_ID,
 			start_cursor: cursor,
 			filter
 		})
