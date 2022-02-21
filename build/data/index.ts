@@ -171,9 +171,6 @@ async function saveRenderingList (articles: ArticleMeta[]): Promise<void> {
 async function main (): Promise<void> {
 	let start = Date.now()
 
-	await fs.mkdir(articlesPath, { recursive: true })
-	await fs.mkdir(paginationsPath, { recursive: true })
-
 	let allArticlesList = await getArticlesList()
 	let updatableArticlesList = await cleanupList(allArticlesList)
 	await saveRenderingList(updatableArticlesList)

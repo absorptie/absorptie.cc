@@ -278,6 +278,8 @@ async function compilePreview (
 }
 
 export async function compileArticles (articlesList: ArticleMeta[]): Promise<void> {
+	await fs.mkdir(articlesPath, { recursive: true })
+
 	for (let article of articlesList) {
 		log('Compiling article', article.id)
 		await cleanupBucketFolder(article.id)
