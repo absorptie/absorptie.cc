@@ -14,7 +14,7 @@ footer.footer
 			template(#dd)
 				a-link(href="mailto:hello@absorptie.cc") Send submission
 	.footer__follow
-		a(href="/" @click="scrollToTop")
+		a(href="/")
 			img.footer__logo(src="../assets/logo.png" width="19" height="50")
 		ul.footer__follow-list
 			li
@@ -32,7 +32,6 @@ footer.footer
 </template>
 
 <script lang="ts" setup>
-import { scrollToTop } from '../utils'
 import ADescriptionList from './ADescriptionList.vue'
 import ALink from './ALink.vue'
 </script>
