@@ -26,7 +26,7 @@ async function build (): Promise<void> {
 			let filePath = join(articlesPath, filename)
 			input[articleId] = filePath
 			let article = await readFile(filePath, { encoding: 'utf8' })
-			let category = JSON.parse(article).category
+			let category = JSON.parse(article).category.toLowerCase()
 			pagesList.push(`/${category}/${articleId}`)
 		}
 

@@ -156,7 +156,9 @@ export async function getArticlesList (category?: string): Promise<ArticleMeta[]
 
 async function saveRenderingList (articles: ArticleMeta[]): Promise<void> {
 	log('Saving rendering list…')
-	let list = articles.map(article => `/${article.category}/${article.id}`)
+	let list = articles.map(
+		article => `/${article.category.toLowerCase()}/${article.id}`
+	)
 	if (list.length > 0) {
 		list.unshift('/')
 	}
