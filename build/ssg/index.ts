@@ -41,6 +41,7 @@ async function build (): Promise<void> {
 		}
 
 		log(`Received ${pagesList.length} pages`)
+		log('Getting rendering list…')
 
 		let cache = new Set<string>(
 			JSON.parse(
