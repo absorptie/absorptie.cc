@@ -1,6 +1,2 @@
-notion/
-dist/
 test/
-
 .env
-.temp-ssg/
