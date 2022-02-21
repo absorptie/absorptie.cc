@@ -2,10 +2,10 @@ import { constants, promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
 import { createPagination, removePagination } from './pagination.js'
+import { articlesPath, notionDir } from './dirs.js'
 import { NOTION_DATABASE_ID } from './constants.js'
 import { createCategories } from './categories.js'
 import { compileArticles } from './articles.js'
-import { articlesPath } from './dirs.js'
 import { notion } from './notion.js'
 import { log } from '../logger/index.js'
 import type { ArticleMeta, DatabaseQueryFilter } from './types.js'
@@ -154,11 +154,24 @@ export async function getArticlesList (category?: string): Promise<ArticleMeta[]
 	return articles
 }
 
+async function saveRenderingList (articles: ArticleMeta[]): Promise<void> {
+	let list = articles.map(article => `/${article.category}/${article.id}`)
+	if (list.length > 0) {
+		list.unshift('/')
+	}
+	await fs.writeFile(
+		join(notionDir, './rendering.json'),
+		JSON.stringify(list),
+		{ encoding: 'utf8' }
+	)
+}
+
 async function main (): Promise<void> {
 	let start = Date.now()
 
 	let allArticlesList = await getArticlesList()
 	let updatableArticlesList = await cleanupList(allArticlesList)
+	await saveRenderingList(updatableArticlesList)
 	await compileArticles(updatableArticlesList)
 
 	if (updatableArticlesList.length > 0) {

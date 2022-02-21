@@ -2,7 +2,7 @@ import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import type { OutputAsset, OutputChunk } from 'rollup'
 
-import { articlesPath, paginationsPath } from '../data/dirs.js'
+import { articlesPath, notionDir, paginationsPath } from '../data/dirs.js'
 import { outDir, root, tempOutDir } from './dirs.js'
 import { log, logger } from '../logger/index.js'
 import { renderPage } from './render.js'
@@ -41,6 +41,23 @@ async function build (): Promise<void> {
 		}
 
 		log(`Received ${pagesList.length} pages`)
+
+		let cache = new Set<string>(
+			JSON.parse(
+				await readFile(
+					join(notionDir, './rendering.json'),
+					{ encoding: 'utf8' }
+				)
+			)
+		)
+		pagesList = pagesList.filter(pageUrl => cache.has(pageUrl))
+
+		if (pagesList.length === 0) {
+			log('Nothing to render')
+			return
+		}
+
+		log(`Only ${pagesList.length} pages should be rerendered`)
 
 		let { clientResult, hashMap } = await bundle(input)
 
