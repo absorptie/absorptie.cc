@@ -15,6 +15,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.12.0
   '@typescript-eslint/parser': ^5.12.0
   '@vitejs/plugin-vue': ^2.2.2
+  '@vue/server-renderer': ^3.2.31
   '@vueuse/core': ^7.6.2
   autoprefixer: ^10.4.2
   dotenv: ^16.0.0
@@ -35,6 +36,7 @@ specifiers:
   picocolors: ^1.0.0
   postcss: ^8.4.6
   pug: ^3.0.2
+  rollup: ^2.67.3
   simple-git-hooks: ^2.7.0
   size-limit: ^7.0.8
   stylelint: ^14.5.1
@@ -53,6 +55,7 @@ dependencies:
   '@nanostores/vue': 0.5.5_nanostores@0.5.10+vue@3.2.31
   '@notionhq/client': 0.4.13
   '@squoosh/lib': 0.4.0
+  '@vue/server-renderer': 3.2.31_vue@3.2.31
   '@vueuse/core': 7.6.2_vue@3.2.31
   dotenv: 16.0.0
   image-size: 1.0.1
@@ -60,6 +63,7 @@ dependencies:
   nanostores: 0.5.10
   node-fetch: 3.2.0
   picocolors: 1.0.0
+  rollup: 2.67.3
   vue: 3.2.31
 
 devDependencies:
@@ -934,12 +938,6 @@ packages:
       '@babel/helper-validator-identifier': 7.16.7
       chalk: 2.4.2
       js-tokens: 4.0.0
-    dev: true
-
-  /@babel/parser/7.17.0:
-    resolution: {integrity: sha512-VKXSCQx5D8S04ej+Dqsr1CzYvvWgf20jIw2D+YhQCrIlr2UZGaDds23Y0xg75/skOxpLCRpUZvk/1EAVkGoDOw==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
     dev: true
 
   /@babel/parser/7.17.3:
@@ -2081,7 +2079,7 @@ packages:
   /constantinople/4.0.1:
     resolution: {integrity: sha512-vCrqcSIq4//Gx74TXXCGnHpulY1dskqLTFGDmhrGxzeXL8lF8kvXv6mpNWlJj1uD4DW23D4ljAqbY4RRaaUZIw==}
     dependencies:
-      '@babel/parser': 7.17.0
+      '@babel/parser': 7.17.3
       '@babel/types': 7.16.8
     dev: true
 
@@ -3102,7 +3100,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /fstream/1.0.12:
@@ -4609,7 +4606,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
   /run-parallel/1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
@@ -5547,7 +5543,7 @@ packages:
     resolution: {integrity: sha512-RNGKj82nUPg3g5ygxkQl0R937xLyho1J24ItRCBTr/m1YnZkzJy1hUiHUJrc/VlsDQzsCnInEGSg3bci0Lmd4w==}
     engines: {node: '>= 10.0.0'}
     dependencies:
-      '@babel/parser': 7.17.0
+      '@babel/parser': 7.17.3
       '@babel/types': 7.16.8
       assert-never: 1.2.1
       babel-walk: 3.0.0-canary-5

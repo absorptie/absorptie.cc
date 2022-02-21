@@ -20,6 +20,7 @@
     "@nanostores/vue": "^0.5.5",
     "@notionhq/client": "^0.4.13",
     "@squoosh/lib": "^0.4.0",
+    "@vue/server-renderer": "^3.2.31",
     "@vueuse/core": "^7.6.2",
     "dotenv": "^16.0.0",
     "image-size": "^1.0.1",
@@ -27,6 +28,7 @@
     "nanostores": "^0.5.10",
     "node-fetch": "^3.2.0",
     "picocolors": "^1.0.0",
+    "rollup": "^2.67.3",
     "vue": "^3.2.31"
   },
   "devDependencies": {
