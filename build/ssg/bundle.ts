@@ -15,8 +15,6 @@ export async function bundle (input: Record<string, string>): Promise<{
 	let prefetchHashMap = Object.create(null)
 
 	let clientResult = await vite.build({
-		// don’t copy notion data files
-		publicDir: false,
 		plugins: [
 			prefetchHashMapPlugin(prefetchHashMap)
 		],
