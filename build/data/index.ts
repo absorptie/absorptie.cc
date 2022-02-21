@@ -2,7 +2,7 @@ import { constants, promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
 import { createPagination, removePagination } from './pagination.js'
-import { articlesPath, notionDir } from './dirs.js'
+import { articlesPath, notionDir, paginationsPath } from './dirs.js'
 import { NOTION_DATABASE_ID } from './constants.js'
 import { createCategories } from './categories.js'
 import { compileArticles } from './articles.js'
@@ -169,6 +169,9 @@ async function saveRenderingList (articles: ArticleMeta[]): Promise<void> {
 
 async function main (): Promise<void> {
 	let start = Date.now()
+
+	await fs.mkdir(articlesPath, { recursive: true })
+	await fs.mkdir(paginationsPath, { recursive: true })
 
 	let allArticlesList = await getArticlesList()
 	let updatableArticlesList = await cleanupList(allArticlesList)
