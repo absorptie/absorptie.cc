@@ -1,0 +1,5 @@
+notion/
+dist/
+test/
+
+.temp-ssg/
