@@ -1,7 +1,7 @@
 import { unref, watch } from 'vue'
 import type { Ref } from 'vue'
 
-export const isBrowser = typeof window !== 'undefined'
+import { hrefToPath, isBrowser } from '../utils'
 
 const prefetched = new Set<string>()
 const createLink = (): HTMLLinkElement => document.createElement('link')
@@ -26,16 +26,6 @@ function prefetch (url: string): void {
 			? viaDOM(url)
 			: viaXHR(url)
 	}
-}
-
-function hrefToPath (href: string): string {
-	let filePath = `${href}?import`
-
-	if (import.meta.env.DEV) {
-		filePath += `?t=${Date.now()}`
-	}
-
-	return filePath
 }
 
 export function usePrefetch (list: Ref<string[]>): void {
