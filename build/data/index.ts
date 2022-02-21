@@ -155,16 +155,18 @@ export async function getArticlesList (category?: string): Promise<ArticleMeta[]
 }
 
 async function main (): Promise<void> {
-	await removePagination()
-
 	let allArticlesList = await getArticlesList()
 	let updatableArticlesList = await cleanupList(allArticlesList)
 	await compileArticles(updatableArticlesList)
-	await createPagination(allArticlesList, 'feed')
 
-	await createCategories()
-
-	log('Done')
+	if (updatableArticlesList.length > 0) {
+		await removePagination()
+		await createPagination(allArticlesList, 'feed')
+		await createCategories()
+		log('Done')
+	} else {
+		log('Nothing to build')
+	}
 }
 
 main()
