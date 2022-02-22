@@ -8,7 +8,7 @@ p
 
 <script lang="ts" setup>
 import ALink from './ALink.vue'
-import type { ArticleBlockParagraphContent } from '../../build/types'
+import type { ArticleBlockParagraphContent } from '../../build/data/types'
 
 defineProps<{
 	paragraph: ArticleBlockParagraphContent[]
