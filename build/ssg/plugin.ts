@@ -7,7 +7,7 @@ export function prefetchHashMapPlugin (
 	hashMap: Record<string, string>
 ): Plugin {
 	return {
-		name: 'absorptie:prefetchHashMap',
+		name: 'absorptie:hashMap',
 		generateBundle (_, bundle): void {
 			for (let name in bundle) {
 				let chunk = bundle[name]
