@@ -25,7 +25,15 @@ export async function bundle (input: Record<string, string>): Promise<{
 			cssCodeSplit: false,
 			rollupOptions: {
 				input,
-				preserveEntrySignatures: 'allow-extension'
+				preserveEntrySignatures: 'allow-extension',
+				output: {
+					manualChunks: (id): string | undefined => {
+						if (/@vue\/(runtime|shared|reactivity)/.test(id)) {
+							return 'vendor'
+						}
+						return undefined
+					}
+				}
 			},
 			minify: true
 		}
