@@ -26,8 +26,8 @@ div(ref="endOfFeedEl")
 
 <script lang="ts" setup>
 import { useIntersectionObserver } from '@vueuse/core'
-import { computed, ref } from 'vue'
 import { useHead } from '@vueuse/head'
+import { ref } from 'vue'
 
 import { useFeed } from '../composables/use-feed'
 import FeedItem from '../components/FeedItem.vue'
