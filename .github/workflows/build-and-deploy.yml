@@ -32,10 +32,10 @@ jobs:
           node-version: 17
           cache: pnpm
 
-      - name: Cache
+      - name: Cache temp build
         uses: actions/cache@v2
         with:
-          path: node_modules
+          path: node_modules/.absorptie
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-
