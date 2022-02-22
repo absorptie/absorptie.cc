@@ -32,6 +32,14 @@ jobs:
           node-version: 17
           cache: pnpm
 
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
