@@ -53,6 +53,7 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
+
       - name: Cache build
         uses: actions/cache@v2
         with:
@@ -60,7 +61,9 @@ jobs:
             dist
             node_modules/.absorptie
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-      - uses: amondnet/vercel-action@v20
+
+      - name: Deploy
+        uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
