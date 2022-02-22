@@ -1,12 +1,22 @@
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
+import semver from 'semver'
 import type { OutputAsset, OutputChunk } from 'rollup'
 
-import { articlesPath, notionDir, paginationsPath } from '../data/dirs.js'
+import { absorptieDir, articlesPath, notionDir, paginationsPath } from '../data/dirs.js'
 import { outDir, root, tempOutDir } from './dirs.js'
 import { log, logger } from '../logger/index.js'
 import { renderPage } from './render.js'
 import { bundle } from './bundle.js'
+
+async function checkVersion (version: string): Promise<boolean> {
+	try {
+		let cachedVersion = await readFile(join(absorptieDir, './version'), 'utf8')
+		return semver.eq(version, cachedVersion)
+	} catch {
+		return false
+	}
+}
 
 async function build (): Promise<void> {
 	try {
@@ -41,22 +51,36 @@ async function build (): Promise<void> {
 		}
 
 		log(`Received ${pagesList.length} pages`)
-		log('Getting rendering list…')
+		log('Checking version…')
 
-		let cache = new Set<string>(
-			JSON.parse(
-				await readFile(
-					join(notionDir, './rendering.json'),
-					{ encoding: 'utf8' }
+		let { version } = JSON.parse(
+			await readFile(join(root, './package.json'), 'utf8')
+		)
+
+		if (await checkVersion(version)) {
+			log('Getting rendering list…')
+
+			let cache = new Set<string>(
+				JSON.parse(
+					await readFile(
+						join(notionDir, './rendering.json'),
+						{ encoding: 'utf8' }
+					)
 				)
 			)
-		)
-		pagesList = pagesList.filter(pageUrl => cache.has(pageUrl))
+			pagesList = pagesList.filter(pageUrl => cache.has(pageUrl))
 
-		if (pagesList.length === 0) {
-			log('Nothing to render')
-			return
+			if (pagesList.length === 0) {
+				log('Nothing to render')
+				return
+			}
 		}
+
+		await writeFile(
+			join(absorptieDir, './version'),
+			version,
+			'utf8'
+		)
 
 		log(`Only ${pagesList.length} pages should be rerendered`)
 
