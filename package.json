@@ -11,7 +11,8 @@
     "dev": "vite",
     "build": "nr build:data && nr build:ssg",
     "build:data": "node --no-warnings --loader ts-node/esm ./build/data/index.ts",
-    "build:ssg": "node --no-warnings --loader ts-node/esm ./build/ssg/index.ts"
+    "build:ssg": "node --no-warnings --loader ts-node/esm ./build/ssg/index.ts",
+    "test": "size-limit"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.52.0",
