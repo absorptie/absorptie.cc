@@ -35,10 +35,14 @@ jobs:
       - name: Cache build
         uses: actions/cache@v2
         with:
-          path: |
-            dist
-            node_modules/.absorptie
-          key: ${{ runner.os }}-${{ hashFiles('**/package.json') }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: node_modules/.absorptie
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Cache dist
+        uses: actions/cache@v2
+        with:
+          path: dist
+          key: ${{ runner.os }}-${{ hashFiles('**/package.json') }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
@@ -57,10 +61,14 @@ jobs:
       - name: Cache build
         uses: actions/cache@v2
         with:
-          path: |
-            dist
-            node_modules/.absorptie
-          key: ${{ runner.os }}-${{ hashFiles('**/package.json') }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: node_modules/.absorptie
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Cache dist
+        uses: actions/cache@v2
+        with:
+          path: dist
+          key: ${{ runner.os }}-${{ hashFiles('**/package.json') }}
 
       - name: Deploy
         uses: amondnet/vercel-action@v20
