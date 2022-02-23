@@ -38,7 +38,7 @@ jobs:
           path: |
             dist
             node_modules/.absorptie
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/package.json') }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
@@ -60,7 +60,7 @@ jobs:
           path: |
             dist
             node_modules/.absorptie
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/package.json') }}-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: Deploy
         uses: amondnet/vercel-action@v20
