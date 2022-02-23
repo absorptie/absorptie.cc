@@ -3,7 +3,7 @@ footer.footer
 	a-description-list
 		template(#dt) If you like what we do, support us with a regular donation. This will help us make the project better and release new content more frequently.
 		template(#dd)
-			a-link(href="https://gumroad.com/absorptie") Support us
+			a-link(href="https://patreon.com/absorptie") Support us
 	.footer__connect
 		a-description-list
 			template(#dt) We are open for collaboration and sponsorship.
