@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-export const PAGE_SIZE = 2
+export const PAGE_SIZE = 10
 
 export const NOTION_TOKEN = process.env.ABSORPTIE_NOTION_TOKEN as string
 export const NOTION_VERSION = process.env.ABSORPTIE_NOTION_VERSION as string
