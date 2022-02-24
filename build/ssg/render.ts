@@ -28,9 +28,7 @@ export async function renderPage (
 				<meta charset="utf-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				${headTags}
-				<link rel="icon" href="/favicon.ico" sizes="any">
 				<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-				<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 				<link rel="manifest" href="/manifest.webmanifest">
 				<meta name="theme-color" content="#000000"  media="(prefers-color-scheme: dark)"/>
 				<meta name="theme-color" content="#e5e5e5"  media="(prefers-color-scheme: light)"/>
