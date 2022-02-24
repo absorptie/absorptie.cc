@@ -29,6 +29,7 @@ export async function renderPage (
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 				${headTags}
 				<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+				<link rel="mask-icon" href="/favicon.svg" color="#e5e5e5">
 				<link rel="manifest" href="/manifest.webmanifest">
 				<meta name="theme-color" content="#000000"  media="(prefers-color-scheme: dark)"/>
 				<meta name="theme-color" content="#e5e5e5"  media="(prefers-color-scheme: light)"/>
