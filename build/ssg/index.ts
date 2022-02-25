@@ -99,7 +99,6 @@ async function build (): Promise<void> {
 		let { createApp } = await import(join(tempOutDir, './app.js'))
 		let manifest = JSON.parse(await readFile(join(tempOutDir, './ssr-manifest.json'), 'utf8'))
 
-		log('Rendering pages…')
 		for (let pageUrl of pagesList) {
 			log('Rendering page', pageUrl)
 			let html = await renderPage(

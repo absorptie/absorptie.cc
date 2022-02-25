@@ -1,38 +1,28 @@
 import { constants, promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
-import { createPagination, removePagination } from './pagination.js'
-import { articlesPath, notionDir, paginationsPath } from './dirs.js'
+import { createPagination } from './pagination.js'
+import { articlesPath, notionDir } from './dirs.js'
 import { NOTION_DATABASE_ID } from './constants.js'
 import { createCategories } from './categories.js'
-import { compileArticles } from './articles.js'
+import { compileArticles, removeArticles } from './articles.js'
 import { notion } from './notion.js'
 import { log } from '../logger/index.js'
 import type { ArticleMeta, DatabaseQueryFilter } from './types.js'
 
 async function cleanupList (
 	articlesList: ArticleMeta[]
-): Promise<ArticleMeta[]> {
+): Promise<[ArticleMeta[], string[]]> {
 	log('Cleaning articles list…')
+	let removeList: string[] = []
 	try {
 		await fs.access(articlesPath, constants.F_OK)
 
 		let articlesFiles = await fs.readdir(articlesPath)
 		let articlesIds = new Set(articlesList.map(article => article.id))
-		let removeList = articlesFiles.filter(file => {
+		removeList = articlesFiles.filter(file => {
 			return !articlesIds.has(file.split('.')[0])
 		})
-
-		if (removeList.length > 0) {
-			log(
-				`Status of ${removeList.length} article has been changed ` +
-				'and they will be removed'
-			)
-			for (let filename of removeList) {
-				log(`Removing article ${filename}`)
-				await fs.rm(join(articlesPath, filename))
-			}
-		}
 	} catch {}
 
 	let articles: ArticleMeta[] = []
@@ -59,11 +49,11 @@ async function cleanupList (
 	if (articles.length > 0) {
 		log(
 			`Content of ${articles.length} articles has been changed ` +
-			'and they will be updated'
+			'and will be updated'
 		)
 	}
 
-	return articles
+	return [articles, removeList]
 }
 
 export async function getArticlesList (category?: string): Promise<ArticleMeta[]> {
@@ -174,18 +164,18 @@ async function main (): Promise<void> {
 	let start = Date.now()
 
 	let allArticlesList = await getArticlesList()
-	let updatableArticlesList = await cleanupList(allArticlesList)
-	await saveRenderingList(updatableArticlesList)
+	let [
+		updatableArticlesList,
+		removableArticlesList
+	] = await cleanupList(allArticlesList)
+	await removeArticles(removableArticlesList)
 	await compileArticles(updatableArticlesList)
+	await saveRenderingList(updatableArticlesList)
 
-	if (updatableArticlesList.length > 0) {
-		await removePagination()
-		await createPagination(allArticlesList, 'feed')
-		await createCategories()
-		log(`Done in ${((Date.now() - start) / 1000).toFixed(2)}s.`)
-	} else {
-		log('Nothing to build')
-	}
+	await createPagination(allArticlesList, 'feed')
+	await createCategories()
+
+	log(`Done in ${((Date.now() - start) / 1000).toFixed(2)}s.`)
 }
 
 main()

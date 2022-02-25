@@ -6,7 +6,6 @@ import { log } from '../logger/index.js'
 import type { CategoriesList } from './types.js'
 
 async function getCategoriesList (): Promise<CategoriesList> {
-	log('Getting categories list from database…')
 	let categories: CategoriesList = []
 
 	let { properties } = await notion.databases.retrieve({
@@ -31,8 +30,8 @@ export async function createCategories (): Promise<void> {
 	let categories = await getCategoriesList()
 
 	for (let category of categories) {
-		log(`Getting articles list sorted by "${category.name}" category`)
 		let categoryArticlesList = await getArticlesList(category.name)
+		if (categoryArticlesList.length === 0) return
 		await createPagination(categoryArticlesList, category.name)
 	}
 }

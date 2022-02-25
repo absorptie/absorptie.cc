@@ -297,3 +297,15 @@ export async function compileArticles (articlesList: ArticleMeta[]): Promise<voi
 		)
 	}
 }
+
+export async function removeArticles (ids: string[]): Promise<void> {
+	if (ids.length === 0) return
+	log(
+		`Status of ${ids.length} article has been changed ` +
+		'and they will be removed'
+	)
+	for (let filename of ids) {
+		log(`Removing article ${filename}`)
+		await fs.rm(join(articlesPath, filename))
+	}
+}

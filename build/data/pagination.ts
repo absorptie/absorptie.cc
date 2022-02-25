@@ -6,16 +6,17 @@ import { PAGE_SIZE } from './constants.js'
 import { log } from '../logger/index.js'
 import type { ArticleMeta, PaginationFile, PreviewedArticle } from './types.js'
 
-export async function removePagination (): Promise<void> {
-	log('Removing old pagination…')
-	await fs.rm(paginationsPath, { force: true, recursive: true })
-}
-
 export async function createPagination (
 	articlesList: ArticleMeta[],
 	prefix: string
 ): Promise<void> {
-	log('Creating pagination…')
+	log('Creating pagination', prefix)
+
+	// remove old
+	await fs.rm(
+		join(paginationsPath, prefix),
+		{ force: true, recursive: true }
+	)
 
 	// load previews
 	let items = await Promise.all(
@@ -51,7 +52,6 @@ export async function createPagination (
 		let pageFile = `${index + 1}.json`
 		let pagePath = join(paginationPath, pageFile)
 
-		log(`Saving page ${index + 1} for "${paginationPrefix}" category…`)
 		await fs.mkdir(paginationPath, { recursive: true })
 		await fs.writeFile(
 			pagePath,
